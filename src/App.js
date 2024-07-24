@@ -1,32 +1,41 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import "./App.css";
-import Authentication from "./Pages/Authenticaion/AuthenticationOne";
+import AuthenticationOne from "./Pages/Authenticaion/AuthenticationOne";
 import Homepage from "./Pages/Homepage/Homepage";
 import Message from "./Pages/Message/Message";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useEffect } from "react";
 import { getProfileAction } from "./Redux/Auth/auth.action";
-
-
+import Register from "./Pages/Authenticaion/Registerr";
+import Profile from "./Pages/Profile/Profile";
 
 function App() {
-  const {auth}=useSelector(store=>store)
+  const { auth } = useSelector((store) => store);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const jwt=localStorage.getItem("jwt");
+  const jwt = localStorage.getItem("jwt");
+
   useEffect(() => {
-    dispatch(getProfileAction(jwt));
-  }, [jwt]);
+    if (jwt) {
+      dispatch(getProfileAction(jwt));
+    }
+  }, [jwt, dispatch]);
 
   return (
     <div className="">
       <Routes>
         <Route
           path="/*"
-          element={ auth.user? <Homepage /> : <Authentication />}
-        ></Route>
-        <Route path="/message" element={<Message />}></Route>
-        <Route path="/*" element={<Authentication />}></Route>
+          element={auth.user ? <Homepage /> : <AuthenticationOne />}
+        />
+
+        <Route
+          path="/message"
+          element={auth.user ? <Message /> : <AuthenticationOne />}
+        />
+
+       
       </Routes>
     </div>
   );

@@ -2,11 +2,12 @@ import React from "react";
 import { NavigationMenu } from "./SideBarNavigation";
 import { Avatar, Button, Card, Divider, Menu, MenuItem } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 const Sidebar = () => {
   const {auth} =useSelector(store=>store);
   const navigate =useNavigate();
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -18,10 +19,28 @@ const Sidebar = () => {
 
 
   const handlenavigate =(item)=>{
-      if(item.title=="Profile"){
+      if(item.title =="Profile"){
         navigate(`/profile/auth.user?.id)`)
       }
+      if(item.title =="Message"){
+        navigate(`/message`)
+      }
+      if(item.title =="Home"){
+        navigate(`/`)
+      }
+      if(item.title =="Reels"){
+        navigate(`/reels`)
+      }
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem('jwt');
+    sessionStorage.removeItem('jwt');
+    // If using cookies
+    document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    // Redirect to login
+    navigate('/login');
+};
 
   return (
     <Card className="card h-screen flex flex-col justify-between py-5">
@@ -78,8 +97,8 @@ const Sidebar = () => {
             }}
           >
             <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
-            <MenuItem onClick={handleClose}>Logout</MenuItem>
+           
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </div>
       </div>

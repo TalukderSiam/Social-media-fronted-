@@ -3,7 +3,7 @@ const upload_preset = "talukder_siam";
 
 export const UploadToCloud = async (pics, fileType) => {
   if (pics && fileType) {
-    const data = new FormData();
+    const data = new FormData();   
     data.append("file", pics);
     data.append("upload_preset", upload_preset);
     data.append("cloud_name", cloud_name);

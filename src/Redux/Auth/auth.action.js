@@ -1,6 +1,6 @@
 import axios from "axios";
 import { api, API_BASE_URL } from "../../Config/apii";
-import { GET_PROFILE_FAILURE, GET_PROFILE_REQUEST, GET_PROFILE_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, UPDATE_PROFILE_FAILURE, UPDATE_PROFILE_REQUEST, UPDATE_PROFILE_SUCCESS } from "./auth.actionType";
+import { GET_PROFILE_FAILURE, GET_PROFILE_REQUEST, GET_PROFILE_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, REGISTER_REQUEST, UPDATE_PROFILE_FAILURE, UPDATE_PROFILE_REQUEST, UPDATE_PROFILE_SUCCESS } from "./auth.actionType";
 
 export const loginUserAction = (loginData) => async (dispatch) => { 
   dispatch({ type: LOGIN_REQUEST });
@@ -21,7 +21,7 @@ export const loginUserAction = (loginData) => async (dispatch) => {
 };
 
 export const registerUserAction = (loginData) => async (dispatch) => {
-  dispatch({ type: LOGIN_REQUEST });
+  dispatch({ type: REGISTER_REQUEST });
   try {
     const { data } = await axios.post(
       `${API_BASE_URL}/auth/signup`,

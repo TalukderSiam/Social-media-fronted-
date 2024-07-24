@@ -20,6 +20,7 @@ const MiddlePart = () => {
   const handleOpenCreatePostModel = () => {
     setOpenCreatePostModel(true);
     console.log("Opne post model",openCreatePostModel);
+    
   };
 
   useEffect(()=>{
@@ -28,7 +29,7 @@ const MiddlePart = () => {
 
   
   return (
-    <div className="px-20">
+    <div className="px-20 ">
       <Card className="flex  item-center p-5 rounded-b-md">
         <div className="flex flex-col items-center mr-4 cursor-pointer">
           <Avatar style={{ width: "5rem", height: "5rem" }}>
@@ -49,6 +50,7 @@ const MiddlePart = () => {
           onClick={handleOpenCreatePostModel}
             readOnly
             type="text"
+            placeholder="Create post..."
             className="outline-none w-[90%] bg-slate-100 rounded-full px-5 
         bg-transparent border-[#3b4054] border"
           />
@@ -77,11 +79,19 @@ const MiddlePart = () => {
         </div>
       </Card>
 
+     {/* <div className="mt-5 space-y-5"> 
+      {post.posts.map((item) => (
+          <PostCard item={item}/>
+        ))}
+      </div>*/}
+
       <div className="mt-5 space-y-5"> 
       {post.posts.map((item) => (
           <PostCard item={item}/>
         ))}
       </div>
+
+      
       <div>
         <CreatePostModel handleClose={ handleCloseCreatePostModel} open={openCreatePostModel}/>
       </div>

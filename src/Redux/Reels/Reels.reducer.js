@@ -1,61 +1,70 @@
 import { Switch } from "@mui/material";
 import {
-  CREATE_POST_FAILURE,
-  CREATE_POST_REQUEST,
-  CREATE_POST_SUCCESS,
-  GET_ALL_POST_FAILURE,
-  GET_ALL_POST_REQUEST,
-  GET_ALL_POST_SUCCESS,
-  GET_USER_POST_FAILURE,
-  LIKE_POST_FAILURE,
-  LIKE_POST_REQUEST,
-  LIKE_POST_SUCCESS,
-} from "./post.actionType";
+   
+    CREATE_REELS_FAILURE,
+    CREATE_REELS_REQUEST,
+    CREATE_REELS_SUCCESS,
+    GET_ALL_REELS_FAILURE,
+    GET_ALL_REELS_REQUEST,
+    GET_ALL_REELS_SUCCESS,
+    GET_USER_REELS_FAILURE,
+    GET_USER_REELS_REQUEST,
+    GET_USER_REELS_SUCCESS,
+    LIKE_REELS_FAILURE,
+    LIKE_REELS_REQUEST,
+    LIKE_REELS_SUCCESS,
+    
+  } from "./Reels.action.Type";
+  import { api, API_BASE_URL } from "../../Config/apii";
+  
+
 import { GET_PROFILE_REQUEST } from "../Auth/auth.actionType";
 import { error } from "ajv/dist/vocabularies/applicator/dependencies";
 import { CREATE_COMMENT_SUCCESS } from "../Comment/Comment.actiontype";
 
 const initialState = {
-  post: null,
+  REELS: null,
   loading: false,
   error: null,
-  posts: [],
+  REELSs: [],
   like: null,
   comments:[],
   newComment:null,
   likes:[]
 };
 
-export const postReducer = (state = initialState, action) => {
+export const REELSReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_ALL_POST_REQUEST:
-    case CREATE_POST_REQUEST:
-    case LIKE_POST_REQUEST:
+    case GET_ALL_REELS_REQUEST:
+    case CREATE_REELS_REQUEST:
+    case LIKE_REELS_REQUEST:
+    case GET_USER_REELS_REQUEST:
       return { ...state, error: null, loading: false };
 
-    case CREATE_POST_SUCCESS:
+    case CREATE_REELS_SUCCESS:
       return {
         ...state,
-        post: action.payload,
-        posts: [action.payload, ...state.posts],
+        REELS: action.payload,
+        REELSs: [action.payload, ...state.REELSs],
         loading: false,
         error: null,
       } 
-      case GET_ALL_POST_SUCCESS:
+      case GET_ALL_REELS_SUCCESS:
+      case GET_USER_REELS_SUCCESS:
         return {
             ...state,
-            posts: action.payload,
+            REELSs: action.payload,
             comments:action.payload.comments,
             likes:action.payload.likes,
             loading: false,
             error: null,
         }
-        case LIKE_POST_SUCCESS :
+        case LIKE_REELS_SUCCESS:
             return{
                 ...state,
                 like: action.payload,
-                posts:state.posts.map((item)=>item.id===action.payload.id? action.payload:item),
-               
+                REELSs:state.REELSs.map((item)=>item.id===action.payload.id? action.payload:item),
+                likes: [action.payload, ...state.likes],
                 loading: false,
                 error: null,
             }
@@ -68,10 +77,10 @@ export const postReducer = (state = initialState, action) => {
                     error: null,
                 }
 
-    case CREATE_POST_FAILURE:
-   
-    case GET_ALL_POST_FAILURE:
-    case LIKE_POST_FAILURE:
+    case CREATE_REELS_FAILURE:
+    case GET_USER_REELS_FAILURE:
+    case GET_ALL_REELS_FAILURE:
+    case LIKE_REELS_FAILURE:
       return {
         ...state,
 

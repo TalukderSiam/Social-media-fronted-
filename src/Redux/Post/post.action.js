@@ -2,6 +2,9 @@ import {
   CREATE_POST_FAILURE,
   CREATE_POST_REQUEST,
   CREATE_POST_SUCCESS,
+  DELETE_POST_FAILURE,
+  DELETE_POST_REQUEST,
+  DELETE_POST_SUCCESS,
   GET_ALL_POST_FAILURE,
   GET_ALL_POST_REQUEST,
   GET_ALL_POST_SUCCESS,
@@ -21,7 +24,7 @@ export const createPostAction = (postData) => async (dispatch) => {
     dispatch({ type: CREATE_POST_SUCCESS, payload: data });
     console.log("created post", data);
   } catch (error) {
-    console.log("Error", error);
+    console.log("ErrorRRRRRRRRRRRRRRRRRRRR", error);
     dispatch({ type: CREATE_POST_FAILURE, payload: error });
   }
 };
@@ -29,7 +32,19 @@ export const createPostAction = (postData) => async (dispatch) => {
 export const getAllPostAction = () => async (dispatch) => {
   dispatch({ type: GET_ALL_POST_REQUEST });
   try {
-    const { data } = await api.get("/api/posts");
+    const { data } = await api.get("api/postss");
+    dispatch({ type: GET_ALL_POST_SUCCESS, payload: data });
+    console.log("Get all post", data);
+  } catch (error) {
+    console.log("Error", error);
+    dispatch({ type: GET_ALL_POST_FAILURE, payload: error });
+  }
+};
+
+export const getUsersPostAction  = () => async (dispatch) => {
+  dispatch({ type: GET_ALL_POST_REQUEST });
+  try {
+    const { data } = await api.get("api/posts");
     dispatch({ type: GET_ALL_POST_SUCCESS, payload: data });
     console.log("Get all post", data);
   } catch (error) {
@@ -40,10 +55,10 @@ export const getAllPostAction = () => async (dispatch) => {
 
 
 
-export const getUsersPostAction = (userId) => async (dispatch) => {
+/*export const getUsersPostAction = () => async (dispatch) => {
     dispatch({ type: GET_USER_POST_REQUEST });
     try {
-      const { data } = await api.get(`/api/posts/user/${userId}`);
+      const { data } = await api.get(`/api/posts`);
       dispatch({ type: GET_USER_POST_SUCCESS, payload: data });
       console.log("Get user  post", data);
     } catch (error) {
@@ -51,6 +66,7 @@ export const getUsersPostAction = (userId) => async (dispatch) => {
       dispatch({ type: GET_USER_POST_FAILURE, payload: error });
     }
   };
+  */
 
 
   export const LikePostAction = (postId) => async (dispatch) => {
@@ -60,7 +76,22 @@ export const getUsersPostAction = (userId) => async (dispatch) => {
       dispatch({ type: LIKE_POST_SUCCESS, payload: data });
       console.log("Like  post", data);
     } catch (error) {
-      console.log("Error", error);
+      console.log("Erroreee", error);
       dispatch({ type: LIKE_POST_FAILURE, payload: error });
     }
   };
+
+ export const DeletePostAction = (postId) => async (dispatch) => {
+    dispatch({ type: DELETE_POST_REQUEST });
+    try {
+      const { data } = await api.delete(`/api/posts/${postId}`);
+      dispatch({ type: DELETE_POST_SUCCESS, payload: data });
+      console.log("Delete post", data);
+    } catch (error) {
+      console.log("Erroreeer ", error);
+      dispatch({ type: DELETE_POST_FAILURE, payload: error });
+    }
+  };
+
+
+  

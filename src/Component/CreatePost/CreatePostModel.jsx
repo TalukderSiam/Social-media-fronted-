@@ -5,15 +5,17 @@ import ImageIcon from "@mui/icons-material/Image";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import { UploadToCloud } from "../../Utils/UploadToCloud";
 import { Await } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createPostAction } from "../../Redux/Post/post.action";
 import { createCommentAction } from "../../Redux/Comment/Comment.action";
+
 
 const CreatePostModel = ({ open, handleClose }) => {
   const [selectedImage, setSelectedImage] = useState(""); // Changed setSelectImage to setSelectedImage
   const [selectedVideo, setSelectedVideo] = useState(""); // Changed setSelectVideo to setSelectedVideo
   const [isLoading, setIsLoading] = useState(false);
   const dispatch =useDispatch();
+  const { auth } = useSelector((store) => store);
 
   const handleSelectImage = async(event) => {
     setIsLoading(true);
@@ -40,6 +42,7 @@ const CreatePostModel = ({ open, handleClose }) => {
     onSubmit: (values) => {
       console.log("Form values:", values);
       dispatch(createPostAction(values));
+      window.location.reload(); 
     }
   });
 
@@ -58,8 +61,8 @@ const CreatePostModel = ({ open, handleClose }) => {
               <Avatar />
 
               <div>
-                <p className="font-bold text-lg">Talukder siam</p>
-                <p className="text-sm">@Talukder siam</p>
+                <p className="font-bold text-lg">   {auth.user?.firstName + " " + auth.user?.lirstName}</p>
+                <p className="text-sm">@{auth.user?.firstName.toLowerCase() + "_" + auth.user?.lirstName.toLowerCase()}</p>
               </div>
             </div>
 

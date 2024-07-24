@@ -19,11 +19,7 @@ export const NavigationMenu = [
         icon: <ExploreIcon />,
         path: "/reels"
     },
-    {
-        title: "Create Reels",
-        icon: <ControlPointIcon />,
-        path: "/create-reels"
-    },
+    
     
     {
         title: "Message",
